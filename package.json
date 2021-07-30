@@ -19,8 +19,7 @@
     "lint": "eslint --ext .js,.ts,.tsx .",
     "prepare": "bob build",
     "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn && cd example/ios && pod install",
-    "postinstall": "cp -r ../../ios/ScreenShieldKit.framework ."
+    "bootstrap": "yarn example && yarn && cd example/ios && pod install"
   },
   "keywords": [
     "react-native",
