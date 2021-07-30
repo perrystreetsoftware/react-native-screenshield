@@ -17,4 +17,5 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks = "ScreenShieldKit.framework"
 
   s.dependency "React-Core"
+  s.dependency "SDWebImage"
 end

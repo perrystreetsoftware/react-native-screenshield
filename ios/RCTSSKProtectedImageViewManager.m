@@ -8,6 +8,7 @@
 //
 
 #import "RCTSSKProtectedImageViewManager.h"
+#import <SDWebImage/SDWebImage.h>
 
 @import ScreenShieldKit;
 
@@ -17,7 +18,16 @@ RCT_EXPORT_MODULE()
 
 RCT_CUSTOM_VIEW_PROPERTY(image, UIImage, SSKProtectedImageView) {
   if (json) {
-    [view setImage:[RCTConvert UIImage:json]];
+      NSString *uri = json[@"uri"];
+      NSURL *URL = [NSURL URLWithString:uri];
+      SDWebImageManager *manager = [SDWebImageManager sharedManager];
+      [manager loadImageWithURL:URL options:(SDWebImageLowPriority | SDWebImageRetryFailed)
+                       progress:nil
+                      completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+              [view setImage:image];
+          });
+      }];
   } else {
     [view setImage:nil];
   }
